@@ -33,10 +33,10 @@ if(	   isset($_POST['email'])
 							(email, password, platform, eligible, discord, g_rank) VALUES
 							(:email, :password, :platform, :eligible, :discord, :g_rank)");
 			$email = $_POST['email'];
-      $platform=$_POST [ 'platform' ];
-      $eligible=$_POST [ 'eligible' ];
-      $discord=$_POST [ 'discord' ];
-      $g_rank=$_POST [ 'g_rank' ];
+			$platform=$_POST [ 'platform' ];
+			$eligible=$_POST [ 'eligible' ];
+			$discord=$_POST [ 'discord' ];
+			$g_rank=$_POST [ 'g_rank' ];
 			$params = array(":email"=> $email, 
 						":password"=> $pass,
             ":platform"=>$platform,

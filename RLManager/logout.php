@@ -3,6 +3,7 @@ session_start();
 session_unset();
 session_destroy();
 echo "You have been logged out";
+echo $_SESSION['user'];
 echo var_export($_SESSION, true);
 //get session cookie and delete/clear it for this session
 if (ini_get("session.use_cookies")) { 

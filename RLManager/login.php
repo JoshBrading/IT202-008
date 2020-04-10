@@ -62,7 +62,7 @@ if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['passwor
 					//"id" => $id,
 					"email"=>$result['email'],
 					"roles"=> $roles);
-				$_SESSION['user'] = $user;
+				$_SESSION['user'] = $email;
 				echo "Session: <pre>" . var_export($_SESSION, true) . "</pre>";
 			}
 			else{
