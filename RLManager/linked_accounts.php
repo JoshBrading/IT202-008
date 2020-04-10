@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
 
+
+<html>
 <head>
     <title>Linked Account</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
@@ -161,38 +162,42 @@
 <body style="background-color:#1c1c1c;">
     <div class="main-block">
         <h1>Linked Account</h1>
-        <form name="Linked_Account" method="POST">
-            <hr>
-            <div class="user_platform">
-                <input type="radio" value="steam" id="steam" name="platform" checked/>
-                <label for="steam" class="radio">Steam</label>
-                <input type="radio" value="ps" id="ps4" name="platform" />
-                <label for="ps4" class="radio">PS4</label>
-                <input type="radio" value="xbox" id="xbox" name="platform" />
-                <label for="xbox" class="radio">Xbox</label>
-            </div>
-            <hr>
-            <label id="icon" for="name"><i class="fas fa-user"></i></label>
-            <input type="text" name="username" id="username" placeholder="Username" autocomplete="new-password" required/>
-            <p>*Enter in game name, not your login name.</p>
-            <hr>
-            <p>Change the game profile linked to your account, this can be changed again at any time.</p>
-            <button type="submit" value="submit">Submit</button>
-        </form>
-        <hr>
-        <form name="Refresh" method="POST">
-            <div class="btn-block">
-                <button type="submit" name="refresh" href="/">Refresh Ranked Data</button>
-            </div>
-        </form>
-        <form name="Cancel" method="POST">
-            <div class="btn-block">
-                <button type="submit" name="cancel" href="/">Cancel</button>
-            </div>
-        </form>
+            <form name="Linked_Account" method="POST" align="center">
+                <hr>
+                <div class="user_platform">
+                    <input type="radio" value="steam" id="steam" name="platform" checked/>
+                    <label for="steam" class="radio">Steam</label>
+                    <input type="radio" value="ps" id="ps4" name="platform" />
+                    <label for="ps4" class="radio">PS4</label>
+                    <input type="radio" value="xbox" id="xbox" name="platform" />
+                    <label for="xbox" class="radio">Xbox</label>
+                </div>
+                <hr>
+                <input type="text" name="username" id="username" placeholder="Username"/>
+                <p>Automatically fetch your rank.</p>
+                <button type="submit" name="submit">Submit</button>
+            </form>
+            <form name="manual" method="POST" align="center">
+                <p>Manually enter your rank.</p>
+
+                <input type="radio" value="Grand Champion" id="Grand Champion" name="rank" checked/>
+                    <label for="grand champion" class="radio">Grand Champion</label>
+                    <input type="radio" value="Champion 3" id="Champion 3" name="rank" />
+                    <label for="Champion 3" class="radio">Champion 3</label>
+                    <input type="radio" value="Champ 2 or lower" id="Champ 2 or lower" name="rank" />
+                    <label for="Champ 2 or lower" class="radio">Champ 2 or lower</label>
+                <button type="submit" name="submitManual">Submit</button>
+                <hr>
+                <p>Change the game profile linked to your account, this can be changed again at any time.]</p>
+                
+            </form>
+            <form name="Cancel" method="POST">
+                <div class="btn-block">
+                    <button type="submit" name="cancel">Cancel</button>
+                </div>
+            </form>
     </div>
 </body>
-
 </html>
 
 <?php
@@ -201,11 +206,11 @@ if(isset($_POST['cancel'])){
 
     echo "<script type='text/javascript'> document.location = 'home.php'; </script>";
 }
-if(isset($_SESSION['user'])) {
+
   echo  $_SESSION['user'];
 
-    if(isset($_POST['username']) && isset($_POST['pass'])){
-
+    if(isset($_POST['username'])){
+        echo $_POST['username'];
         $pass = $_POST['pass'];
         $user = $_POST['username'];
         $platform = $_POST['platform'];
@@ -217,11 +222,10 @@ if(isset($_SESSION['user'])) {
 
         $html = getHTML($url);
         cleanHTML($html);   
-    }
-
-    if(isset($_POST['refresh'] )){
-
-    echo "afsrgaerheathearth";
+    }else if(isset($_POST['rank'])){
+        echo "ranks";
+        $g_rank = $_POST['rank'];
+        setRank($g_rank);
     }
 
     function getHTML($site_url) // Gets the html of https://rocketleague.tracker.network/profile/$platform/$user
@@ -263,13 +267,24 @@ if(isset($_SESSION['user'])) {
     $str = str_replace($remove_these, '', $str);        // Remove the characters
     $str = explode('(', $str);                          // Break the string into an array (this should work for everyones stats I think?)
     $str = $str[0];                                     // We only need the first elemennt in the array
-    echo $str;
+    setRank($str);
     }
-    function getHighestRank($html_block){ // return the highest rank and game mode with the highest rank
-
+    function setRank($rank){ // return the highest rank and game mode with the highest rank
+        echo $rank;
+        require("config.php");
+        $email = $_SESSION['user'];
+		$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+		try {
+            $sql="UPDATE RLManager SET g_rank = '$rank' WHERE email = '$email'";
+			$db = new PDO($connection_string, $dbuser, $dbpass);
+			$stmt = $db->prepare($sql);
+			$stmt->execute();
+			echo "<pre>" . print_r($stmt->errorInfo(), true) . "</pre>";
+		}
+		catch(Exception $e){
+			echo $e->getMessage();
+			exit();
+		}
     }
-}else{
-    echo "You must login!";
-  }
 
 ?>

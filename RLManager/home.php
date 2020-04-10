@@ -195,7 +195,7 @@
             <?php
                 require("config.php");
                 echo "<table style='border: solid 1px black;'>";
-                echo "<tr><th>Time Slots</th><th>Discord ID</th></tr>";
+                echo "<tr><th>Rank</th><th>Time Slots</th><th>Discord ID</th></tr>";
 
                 class TableRows extends RecursiveIteratorIterator {
                     function __construct($it) {
@@ -220,7 +220,7 @@
                 try {
                     $conn = new PDO($connection_string, $dbuser, $dbpass);
                     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                    $stmt = $conn->prepare("SELECT time_slot, discord FROM RLManager");
+                    $stmt = $conn->prepare("SELECT g_rank, time_slot, discord FROM RLManager");
                     $stmt->execute();
 
                     // set the resulting array to associative

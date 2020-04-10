@@ -138,18 +138,18 @@ if(	   isset($_POST['email'])
         <br>
   				<label for="platform">Select your platform:</label>
   				<select id="platform" name="platform">
-   				 <option value="PC">PC</option>
-   				 <option value="PS4">PS4</option>
-   				 <option value="Switch">Switch</option>
-  				 <option value="Xbox">Xbox</option>
+   				<option value="PC">PC</option>
+   				<option value="PS4">PS4</option>
+   				<option value="Switch">Switch</option>
+  				<option value="Xbox">Xbox</option>
   				</select>
         <br>
         <br>
   				<label for="g_rank">Select your rank:</label>
   				<select id="g_rank" name="g_rank">
-   				 <option value="Grand Champion">Grand Champion</option>
-   				 <option value="Champion 3">Champion 3</option>
-   				 <option value="Champ 2 or lower">Champion 2 or lower</option>
+					<option value="Grand Champion">Grand Champion</option>
+					<option value="Champion 3">Champion 3</option>
+					<option value="Champ 2 or lower">Champion 2 or lower</option>
         <br>
 
         </select>
