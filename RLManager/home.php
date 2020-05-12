@@ -2,197 +2,206 @@
 <html>
 
 <head>
-    <title>Home</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-    <style>
-        html, body {
-            display: flex;
-            justify-content: center;
-            height: 100%;
-        }
-        
-        body, div, h1, form, input, p {
-            padding: 0;
-            margin: 0;
-            outline: none;
-            font-family: Roboto, Arial, sans-serif;
-            font-size: 16px;
-            color: #e8e8e8;
-        }
-        
-        h1 {
-            padding: 10px 0;
-            font-size: 32px;
-            font-weight: 300;
-            text-align: center;
-        }
-        
-        p {
-            font-size: 12px;
-        }
-        
-        hr {
-            color: #e8e8e8;
-            opacity: 0.3;
-        }
-        
-        .main-block {
-            max-width: 9000px;
-            min-height: 200px;
-            padding: 10px 0;
-            margin: auto;
-            border-radius: 5px;
-            border: solid 1px #ccc;
-            box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
-            background: #2e2e2e;
-        }
-        
-        form {
-            margin: 0 30px;
-            display:inline-block;
-        }
-        
-        .user_platform {
-            margin: 15px 0;
-        }
-        
-        input[type=radio] {
-            display: none;
-        }
-        
-        label#icon {
-            margin: 0;
-            border-radius: 5px 0 0 5px;
-        }
-        
-        label.radio {
-            position: relative;
-            display: inline-block;
-            padding-top: 4px;
-            margin-right: 20px;
-            text-indent: 30px;
-            overflow: visible;
-            cursor: pointer;
-        }
-        
-        label.radio:before {
-            content: "";
-            position: absolute;
-            top: 2px;
-            left: 0;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #c20000;
-        }
-        
-        label.radio:after {
-            content: "";
-            position: absolute;
-            width: 9px;
-            height: 4px;
-            top: 8px;
-            left: 4px;
-            border: 3px solid #e9e9e9;
-            border-top: none;
-            border-right: none;
-            transform: rotate(-45deg);
-            opacity: 0;
-        }
-        
-        input[type=radio]:checked + label:after {
-            opacity: 1;
-        }
-        
-        input[type=text], input[type=password] {
-            width: calc(100% - 57px);
-            height: 36px;
-            margin: 13px 0 0 -5px;
-            padding-left: 10px;
-            border-radius: 0 5px 5px 0;
-            border: solid 1px #cbc9c9;
-            box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-            background: #2e2e2e;
-        }
-        
-        input[type=password] {
-            margin-bottom: 15px;
-        }
-        
-        #icon {
-            display: inline-block;
-            padding: 9.3px 15px;
-            box-shadow: 1px 2px 5px rgba(0, 0, 0, .09);
-            background: #c20000;
-            color: #e9e9e9;
-            text-align: center;
-        }
-        
-        .btn-block {
-            margin-top: 10px;
-            text-align: center;
-        }
-        
-        button {
-            width: 150px;
-            padding: 10px 0;
-            margin: 10px auto;
-            border-radius: 5px;
-            border: none;
-            background: #c20000;
-            font-size: 14px;
-            font-weight: 600;
-            color: #e9e9e9;
-        }
-        
-        button:hover {
-            background: #eb0000;
-        }
-
-        table, th, td {
-            border-collapse: collapse;
-            text-align: center;
-            border: 1px solid white;
-            padding: 5px;
-            width: 1000px;
-        }
-        tr:nth-child(even) {background-color: #1c1c1c;}
-    </style>
+	<title>Home</title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/2dc30c3b9c.js" crossorigin="anonymous"></script>
+	<style>
+	html,
+	body {
+		display: flex;
+		justify-content: center;
+		height: 100%;
+	}
+	
+	body,
+	div,
+	h1,
+	form,
+	input {
+		padding: 0;
+		margin: 0;
+		outline: none;
+		font-size: 16px;
+		color: #e8e8e8;
+	}
+	
+	h1 {
+		padding: 10px 0;
+		font-size: 32px;
+		font-weight: 300;
+		text-align: center;
+	}
+	
+	p {
+		font-size: 12px;
+	}
+	
+	hr {
+		color: #e8e8e8;
+		opacity: 0.3;
+	}
+	
+	.main-block {
+		max-width: 9000px;
+		min-height: 200px;
+		padding: 10px 0;
+		margin: auto;
+		border-radius: 5px;
+		border: solid 1px #ccc;
+		box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
+		background: #2e2e2e;
+	}
+	
+	form {
+		margin: 0 30px;
+		display: inline-block;
+	}
+	
+	.btn-block {
+		margin-top: 10px;
+		text-align: center;
+	}
+	
+	button {
+		width: 150px;
+		padding: 10px 0;
+		margin: 10px auto;
+		border-radius: 5px;
+		border: none;
+		background: #c20000;
+		font-size: 14px;
+		font-weight: 600;
+		color: #e9e9e9;
+	}
+	
+	button:hover {
+		background: #eb0000;
+	}
+	
+	table,
+	th,
+	td {
+		border-collapse: collapse;
+		text-align: center;
+		border: 2px solid white;
+		padding: 5px;
+		width: 1000px;
+	}
+	
+	tr:nth-child(even) {
+		background-color: #1c1c1c;
+	}
+	
+	.card {
+		border: 2px solid white;
+		width: 400px;
+		height: 1024px;
+		margin: auto;
+		text-align: center;
+		font-family: arial;
+	}
+	
+	.title {
+		color: grey;
+		font-size: 18px;
+	}
+	
+	a {
+		text-decoration: none;
+		font-size: 20px;
+		color: white;
+	}
+	
+	h2 {
+		font-size: 32px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	h3 {
+		font-size: 24px;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	
+	.grid-container {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		/*background-color: #2196F3;*/
+		padding: 2px;
+	}
+	
+	.grid-container > div {
+		/*background-color: rgba(255, 255, 255, 0.8);*/
+		text-align: center;
+		padding: 2px;
+		font-size: 30px;
+	}
+	
+	.item1 {
+		grid-row: 1;
+		grid-column: 1 / span 3;
+	}
+	
+	.item2 {
+		grid-row: 2;
+	}
+	
+	.item3 {
+		grid-row: 3;
+		grid-column: 1 / span 2;
+	}
+	
+	.item4 {
+		grid-row: 4;
+		grid-column: 1 / span 2;
+	}
+	
+	.item5 {
+		grid-row: 5;
+	}
+	
+	.itembio {
+		grid-row: 2;
+		grid-column: 1 / span 2;
+	}
+	</style>
 </head>
 
 <body style="background-color:#1c1c1c;">
-    <div class="main-block">
-        <div align="center">
-            <form name="Cancel" method="POST">
-                <div class="btn-block">
-                    <button type="submit" name="login" href="/">Login</button>
-                </div>
-            </form>
-            <form name="Cancel" method="POST">
-                <div class="btn-block">
-                    <button type="submit" name="register" href="/">Register</button>
-                </div>
-            </form>
-            <form name="Cancel" method="POST">
-                <div class="btn-block">
-                    <button type="submit" name="rank" href="/">Update Rank</button>
-                </div>
-            </form>
-            <form name="Cancel" method="POST">
-                <div class="btn-block">
-                    <button type="submit" name="schedule" href="/">Update Schedule</button>
-                </div>
-            </form>
-            <form name="Cancel" method="POST">
-                <div class="btn-block">
-                    <button type="submit" name="logout" href="/">Logout</button>
-                </div>
-            </form>
-        </div>
-        <h1>Practice Times</h1>
-        <div align="center">
-            <?php
+	<div class="grid-container">
+		<div class="item1">
+			<div class="main-block">
+				<div align="center">
+					<form name="Cancel" method="POST">
+						<div class="btn-block">
+							<button type="submit" name="login" href="/">Login</button>
+						</div>
+					</form>
+					<form name="Cancel" method="POST">
+						<div class="btn-block">
+							<button type="submit" name="register" href="/">Register</button>
+						</div>
+					</form>
+					<form name="Cancel" method="POST">
+						<div class="btn-block">
+							<button type="submit" name="rank" href="/">Update Rank</button>
+						</div>
+					</form>
+					<form name="Cancel" method="POST">
+						<div class="btn-block">
+							<button type="submit" name="schedule" href="/">Update Schedule</button>
+						</div>
+					</form>
+					<form name="Cancel" method="POST">
+						<div class="btn-block">
+							<button type="submit" name="logout" href="/">Logout</button>
+						</div>
+					</form>
+				</div>
+				<h1>Practice Times</h1>
+				<div align="center">
+					<?php
                 require("config.php");
                 echo "<table style='border: solid 1px black;'>";
                 echo "<tr><th>Rank</th><th>Time Slots</th><th>Discord ID</th></tr>";
@@ -235,12 +244,148 @@
                 $conn = null;
                 echo "</table>";
             ?>
-        </div>
-    </div>
+				</div>
+			</div>
+		</div>
+		<div class="item2">
+			<div class="grid-container">
+				<div class="item2">
+					<div class="card"> <img src="https://i.imgur.com/i7ltRDC.png" style="width:100%">
+						<div class="grid-container">
+							<div class="item1">
+								<h1 style="font-size: 56px">Tacki</h1> </div>
+							<div class="item3">
+								<h2 style="color: #4d93d9">Division 1</h2>
+								<h2 style="color: #2fcd73; margin-top: 0;">Captain</h2> <img src="https://rocketleague.tracker.network/Images/RL/ranked/s4-19.png" style="width:20%"> </div>
+							<div class="item4">
+								<h2 style="color: #ff00ea">Grand Champion</h2>
+								<h3>Linked Accounts</h3> </div>
+							<div class="itembio">
+								<p style="font-size: 16px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sagittis eget mi eget venenatis. Proin faucibus bibendum euismod. Nullam a erat sed ligula fringilla lacinia. Nunc tristique pharetra dictum. Cras vel metus ut libero pulvinar tincidunt nec sit amet ante. </p>
+							</div>
+							<div class="item5">
+								<div align="left" style="margin: 22px; vertical-align: middle;"> <a href="#"><i class="fa fa-steam"></i> player_steam</a>
+									<br> <a href="#"><i class="fab fa-xbox"></i> player_xbl</a>
+									<br> <a href="#"><i class="fab fa-playstation"></i> player_psn</a> </div>
+							</div>
+							<div class="item5">
+								<div align="left" style="margin: 22px; vertical-align: middle;"> <a href="#"><i class="fa fa-twitter"></i> player_twitter</a>
+									<br> <a href="#"><i class="fab fa-discord"></i> player_discord</a>
+									<br> <a href="#"><i class="fa fa-twitch"></i> player_twitch</a>
+									<br> <a href="#"><i class="far fa-envelope"></i> player_email</a> </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<?php
+            require("config.php");
+			
+
+
+            $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+
+            try {
+                $conn = new PDO($connection_string, $dbuser, $dbpass);
+                $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $conn->prepare("SELECT g_rank, time_slot, discord FROM RLManager");
+                $stmt->execute();
+
+                // set the resulting array to associative
+                $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+				//print_r($result[0]);
+				$i = 0;
+				$grid = 2;
+				foreach($result as $row){
+					echo "<br>";
+					$discord = $row['discord'];
+					$rank = $row['g_rank'];
+					$email = $row['email'];
+					$division = 'Division 1';
+					$position = 'Captain';
+				
+					// Pass this the players division, position and rank, also references to each color
+					// assign_colors(p_division, p_position, p_rank, &c_division, &c_position, &c_rank);
+					assign_colors($division, $position, $rank, $color_division, $color_position, $color_rank);
+					if( $i >= 2){
+						$grid++;
+						$i = 0;
+					}
+					$i++;
+					echo "
+						<div style='grid-row: $grid;'>
+							<div class='grid-container'>
+								<div class='item2'>
+									<div class='card'> <img src='https://holmesbuilders.com/wp-content/uploads/2016/12/male-profile-image-placeholder.png' style='width:100%'>
+										<div class='grid-container'>
+											<div class='item1'>
+												<h1 style='font-size: 56px'>$discord</h1> </div>
+											<div class='item3'>
+												<h2 style='color: $color_division'>player_division</h2>
+												<h2 style='color: $color_position; margin-top: 0;'>player_position</h2> <img src='https://rocketleague.tracker.network/Images/RL/ranked/s4-0.png' style='width:20%'> </div>
+											<div class='item4'>
+												<h2 style='color: $color_rank'>$rank</h2>
+												<h3>Linked Accounts</h3> </div>
+											<div class='itembio'>
+												<p style='font-size: 16px'>player_bio</p>
+											</div>
+											<div class='item5'>
+												<div align='left' style='margin: 22px; vertical-align: middle;'> <a href='#'><i class='fa fa-steam'></i> player_steam</a>
+													<br> <a href='#'><i class='fab fa-xbox'></i> player_xbl</a>
+													<br> <a href='#'><i class='fab fa-playstation'></i> player_psn</a> </div>
+											</div>
+											<div class='item5'>
+												<div align='left' style='margin: 22px; vertical-align: middle;'> <a href='#'><i class='fa fa-twitter'></i> player_twitter</a>
+													<br> <a href='#'><i class='fab fa-discord'></i> $discord</a>
+													<br> <a href='#'><i class='fa fa-twitch'></i> player_twitch</a>
+													<br> <a href='#'><i class='far fa-envelope'></i> $email</a> </div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						";
+				}
+            }
+            catch(PDOException $e) {
+                echo "Error: " . $e->getMessage();
+            }
+            $conn = null;
+            echo "</table>";
+
+			function assign_colors($p_division, $p_position, $p_rank, &$c_division, &$c_position, &$c_rank){
+				switch( $p_division ){
+					case "Division 1":
+						$c_division = '#000000';
+						break;
+					case 'Division 2':
+						$c_division = "#000000";
+						break;
+				}
+				switch( $p_position ){
+					case "Captain":
+						$c_position = '#000000';
+						break;
+					case 'Player':
+						$c_position = "#000000";
+						break;
+					case 'GameManager':
+						$c_position = "#000000";
+						break;
+				}
+				switch( $p_rank ){
+					case "Division 1":
+						$c_rank = '#000000';
+						break;
+					case 'Division 2':
+						$c_rank = "#000000";
+				}
+			}
+        ?>
+	</div>
 </body>
-
-</html>
-
 <?php
     if(isset($_POST['logout'])){
 
