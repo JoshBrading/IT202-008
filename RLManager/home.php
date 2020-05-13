@@ -94,7 +94,7 @@
 	
 	.card {
 		border: 2px solid white;
-		width: 400px;
+		width: 420px;
 		height: 1024px;
 		margin: auto;
 		text-align: center;
@@ -289,12 +289,11 @@
             try {
                 $conn = new PDO($connection_string, $dbuser, $dbpass);
                 $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $conn->prepare("SELECT g_rank, time_slot, discord FROM RLManager");
+                $stmt = $conn->prepare("SELECT * FROM RLManager");
                 $stmt->execute();
 
                 // set the resulting array to associative
                 $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-				//print_r($result[0]);
 				$i = 0;
 				$grid = 2;
 				foreach($result as $row){
@@ -304,10 +303,10 @@
 					$email = $row['email'];
 					$division = 'Division 1';
 					$position = 'Captain';
-				
+					check_null($discord, $rank, $email, $bio);
 					// Pass this the players division, position and rank, also references to each color
 					// assign_colors(p_division, p_position, p_rank, &c_division, &c_position, &c_rank);
-					assign_colors($division, $position, $rank, $color_division, $color_position, $color_rank);
+					assign_colors($division, $position, $rank, $color_division, $color_position, $color_rank, $icon_rank);
 					if( $i >= 2){
 						$grid++;
 						$i = 0;
@@ -322,23 +321,27 @@
 											<div class='item1'>
 												<h1 style='font-size: 56px'>$discord</h1> </div>
 											<div class='item3'>
-												<h2 style='color: $color_division'>player_division</h2>
-												<h2 style='color: $color_position; margin-top: 0;'>player_position</h2> <img src='https://rocketleague.tracker.network/Images/RL/ranked/s4-0.png' style='width:20%'> </div>
+												<h2 style='color: $color_division'>$division</h2>
+												<h2 style='color: $color_position; margin-top: 0;'>$position</h2>
+												<img src='$icon_rank' alt='$icon_rank' style='width:20%'>
+											</div>
 											<div class='item4'>
 												<h2 style='color: $color_rank'>$rank</h2>
 												<h3>Linked Accounts</h3> </div>
 											<div class='itembio'>
-												<p style='font-size: 16px'>player_bio</p>
+												<p style='font-size: 16px'>$bio</p>
 											</div>
 											<div class='item5'>
-												<div align='left' style='margin: 22px; vertical-align: middle;'> <a href='#'><i class='fa fa-steam'></i> player_steam</a>
-													<br> <a href='#'><i class='fab fa-xbox'></i> player_xbl</a>
-													<br> <a href='#'><i class='fab fa-playstation'></i> player_psn</a> </div>
+												<div align='left' style='margin: 22px; vertical-align: middle;'>
+													<a href='#'><i class='fa fa-steam'></i> $account_steam</a>
+													<br> <a href='#'><i class='fab fa-xbox'></i> $account_xbl</a>
+													<br> <a href='#'><i class='fab fa-playstation'></i> $account_psn</a> </div>
 											</div>
 											<div class='item5'>
-												<div align='left' style='margin: 22px; vertical-align: middle;'> <a href='#'><i class='fa fa-twitter'></i> player_twitter</a>
+												<div align='left' style='margin: 22px; vertical-align: middle;'> 
+													<a href='#'><i class='fa fa-twitter'></i> $twitter</a>
 													<br> <a href='#'><i class='fab fa-discord'></i> $discord</a>
-													<br> <a href='#'><i class='fa fa-twitch'></i> player_twitch</a>
+													<br> <a href='#'><i class='fa fa-twitch'></i> $twitch</a>
 													<br> <a href='#'><i class='far fa-envelope'></i> $email</a> </div>
 											</div>
 										</div>
@@ -353,12 +356,13 @@
                 echo "Error: " . $e->getMessage();
             }
             $conn = null;
-            echo "</table>";
 
-			function assign_colors($p_division, $p_position, $p_rank, &$c_division, &$c_position, &$c_rank){
+			function assign_colors($p_division, $p_position, $p_rank, &$c_division, &$c_position, &$c_rank, &$icon_rank){
+
+				$p_rank = parse_rank($p_rank);
 				switch( $p_division ){
 					case "Division 1":
-						$c_division = '#000000';
+						$c_division = '#4d93d9';
 						break;
 					case 'Division 2':
 						$c_division = "#000000";
@@ -366,7 +370,7 @@
 				}
 				switch( $p_position ){
 					case "Captain":
-						$c_position = '#000000';
+						$c_position = '#2fcd73';
 						break;
 					case 'Player':
 						$c_position = "#000000";
@@ -376,12 +380,104 @@
 						break;
 				}
 				switch( $p_rank ){
-					case "Division 1":
-						$c_rank = '#000000';
+					case "GrandChampion":
+						$c_rank = '#ff00ea';
+						$icon_rank = 'images/GrandChamp.png';
 						break;
-					case 'Division 2':
-						$c_rank = "#000000";
+					case 'ChampionIII':
+						$icon_rank = "images/Champion3.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'ChampionII':
+						$icon_rank = "images/Champion2.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'ChampionI':
+						$icon_rank = "images/Champion1.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'DiamondIII':
+						$icon_rank = "images/Diamond3.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'DiamondII':
+						$icon_rank = "images/Diamond2.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'DiamondI':
+						$icon_rank = "images/Diamond1.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'PlatinumIII':
+						$icon_rank = "images/Platinum3.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'PlatinumII':
+						$icon_rank = "images/Platinum2.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'PlatinumI':
+						$icon_rank = "images/Platinum1.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'GoldIII':
+						$icon_rank = "images/Gold3.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'GoldII':
+						$icon_rank = "images/Gold2.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'GoldI':
+						$icon_rank = "images/Gold1.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'SilverIII':
+						$icon_rank = "images/Silver3.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'SilverII':
+						$icon_rank = "images/Silver2.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'SilverI':
+						$icon_rank = "images/Silver1.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'BronzeIII':
+						$icon_rank = "images/Bronze3.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'BronzeII':
+						$icon_rank = "images/Bronze2.png";
+						$c_rank = '#a87ee6';
+						break;
+					case 'BronzeI':
+						$icon_rank = "images/Bronze1.png";
+						$c_rank = '#a87ee6';
+						break;
+					default:
+						$icon_rank = "images/Unranked.png";
+						$c_rank = '##666666';
 				}
+			}
+
+			function parse_rank( $p_rank ){ // If the user automatically fetches their ranked data then we need to parse out the first two words
+				$rank_pased = explode(" ", $p_rank);
+				$rank_pased = str_replace('Division', '', $rank_pased);
+
+				if($rank_pased[0] == ""){
+					$rank_pased = $rank_pased[1] . $rank_pased[2];
+					$rank_pased = preg_replace('/\s/', '', $rank_pased);
+					return $rank_pased;
+				}
+				return $rank_pased[0] . $rank_pased[1];
+			}
+
+			function check_null(&...$args){	// This function will take any number of arguments as a reference and replace the string with "N/A" if its empty
+				foreach( $args as &$arg)
+					if( empty($arg) )
+						$arg = "N/A";
 			}
         ?>
 	</div>
