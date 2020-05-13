@@ -179,6 +179,25 @@
 				<div align="center">
 				<?php
 				session_start();
+				require("config.php");
+				$email = $_SESSION['user'];
+				$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+				try {
+					$sql="SELECT player_position FROM RLManager WHERE email = '$email'";
+					$db = new PDO($connection_string, $dbuser, $dbpass);
+					$stmt = $db->prepare($sql);
+					$stmt->execute();
+
+					$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+					$i = 0;
+					$grid = 2;
+					$position = $result[0]['player_position'];
+
+				}
+				catch(Exception $e){
+					echo $e->getMessage();
+					exit();
+				}
 				if(isset($_SESSION['user'])) {
 					//echo $_SESSION['user'];
 					$GLOBALS['logged_in'] = true;
@@ -213,6 +232,15 @@
 								</div>
 							</form>
 						';
+						if( $position == 'Captain' || $position == 'GameManager'){
+							echo '
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="manager" href="/">Management</button>
+								</div>
+							</form>
+							';
+						}
 					} else {
 						echo '
 							<form name="Cancel" method="POST">
@@ -538,6 +566,10 @@
     if(isset($_POST['profile'])){
 
         echo "<script type='text/javascript'> document.location = 'profile.php'; </script>";
+	}
+	if(isset($_POST['manager'])){
+
+        echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
 	}
 
 	function function_alert($message) { 
