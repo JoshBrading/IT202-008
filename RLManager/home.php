@@ -46,7 +46,7 @@
 		min-height: 200px;
 		padding: 10px 0;
 		margin: auto;
-		border-radius: 5px;
+		border-radius: 25px;
 		border: solid 1px #ccc;
 		box-shadow: 1px 2px 5px rgba(0, 0, 0, .31);
 		background: #2e2e2e;
@@ -93,6 +93,7 @@
 	}
 	
 	.card {
+		border-radius: 25px;
 		border: 2px solid white;
 		width: 420px;
 		height: 1024px;
@@ -165,6 +166,9 @@
 		grid-row: 2;
 		grid-column: 1 / span 2;
 	}
+	img{
+		border-radius: 25px;
+	}
 	</style>
 </head>
 
@@ -185,12 +189,12 @@
 					</form>
 					<form name="Cancel" method="POST">
 						<div class="btn-block">
-							<button type="submit" name="rank" href="/">Update Rank</button>
+							<button type="submit" name="profile" href="/">Edit Profile</button>
 						</div>
 					</form>
 					<form name="Cancel" method="POST">
 						<div class="btn-block">
-							<button type="submit" name="schedule" href="/">Update Schedule</button>
+							<button type="submit" name="schedule" href="/">Edit Schedule</button>
 						</div>
 					</form>
 					<form name="Cancel" method="POST">
@@ -250,7 +254,7 @@
 		<div class="item2">
 			<div class="grid-container">
 				<div class="item2">
-					<div class="card"> <img src="https://i.imgur.com/i7ltRDC.png" style="width:100%">
+					<div class="card"> <img src="https://i.imgur.com/i7ltRDC.png" style="width: 100%;">
 						<div class="grid-container">
 							<div class="item1">
 								<h1 style="font-size: 56px">Tacki</h1> </div>
@@ -500,8 +504,8 @@
 
         echo "<script type='text/javascript'> document.location = 'register.php'; </script>";
     }
-    if(isset($_POST['rank'])){
+    if(isset($_POST['profile'])){
 
-        echo "<script type='text/javascript'> document.location = 'linked_accounts.php'; </script>";
+        echo "<script type='text/javascript'> document.location = 'profile.php'; </script>";
     }
 ?>
