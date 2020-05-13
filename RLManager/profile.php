@@ -8,7 +8,7 @@
 	<style>
 	html,
 	body {
-		display: flex;
+
 		justify-content: center;
 		height: 100%;
 	}
@@ -129,6 +129,9 @@
 		/*grid-template-columns: auto auto auto auto;
 		background-color: #2196F3;
         */ padding: 20px;
+        width: 1020px;
+        justify-items: center;
+        align-items: center;
         
 	}
 	
@@ -142,7 +145,8 @@
 </head>
 
 <body style="background-color:#1c1c1c;">
-    <div class="grid-container" align="center">
+<div align="center">
+    <div class="grid-container">
     <div style="grid-column: 2; grid-row: 2 / span 2;">
             <div class="main-block" style="width: 340px;">
                 <h1>Basic Information</h1>
@@ -260,14 +264,14 @@
                         </div>
                     </form>
                     </div>
-                    <div style="grid-column: 3;">
+                    <div style="grid-column: 2;">
                     <form name="home" method="POST">
                         <div class="btn-block">
                             <button type="submit" name="logout">Logout</button>
                         </div>
                     </form>
                     </div>
-                    <div style="grid-column: 5;">
+                    <div style="grid-column: 3;">
                     <form name="home" method="POST">
                         <div class="btn-block">
                             <button type="submit" name="Edit Schedule">Edit Schedule</button>
@@ -278,6 +282,7 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 
 </html>
