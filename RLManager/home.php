@@ -303,7 +303,7 @@
 					$email = $row['email'];
 					$division = 'Division 1';
 					$position = 'Captain';
-					check_null($discord, $rank, $email, $bio);
+					check_null($discord, $rank, $email, $bio, $account_steam, $account_xbl, $account_psn, $twitter, $twitch, $email);
 					// Pass this the players division, position and rank, also references to each color
 					// assign_colors(p_division, p_position, p_rank, &c_division, &c_position, &c_rank);
 					assign_colors($division, $position, $rank, $color_division, $color_position, $color_rank, $icon_rank);
@@ -398,66 +398,66 @@
 						break;
 					case 'DiamondIII':
 						$icon_rank = "images/Diamond3.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#0ba8ff';
 						break;
 					case 'DiamondII':
 						$icon_rank = "images/Diamond2.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#0ba8ff';
 						break;
 					case 'DiamondI':
 						$icon_rank = "images/Diamond1.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#0ba8ff';
 						break;
 					case 'PlatinumIII':
 						$icon_rank = "images/Platinum3.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#a5f8ff';
 						break;
 					case 'PlatinumII':
 						$icon_rank = "images/Platinum2.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#a5f8ff';
 						break;
 					case 'PlatinumI':
 						$icon_rank = "images/Platinum1.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#a5f8ff';
 						break;
 					case 'GoldIII':
 						$icon_rank = "images/Gold3.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#f4db45';
 						break;
 					case 'GoldII':
 						$icon_rank = "images/Gold2.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#f4db45';
 						break;
 					case 'GoldI':
 						$icon_rank = "images/Gold1.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#f4db45';
 						break;
 					case 'SilverIII':
 						$icon_rank = "images/Silver3.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#c7c7c6';
 						break;
 					case 'SilverII':
 						$icon_rank = "images/Silver2.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#c7c7c6';
 						break;
 					case 'SilverI':
 						$icon_rank = "images/Silver1.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#c7c7c6';
 						break;
 					case 'BronzeIII':
 						$icon_rank = "images/Bronze3.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#faa54e';
 						break;
 					case 'BronzeII':
 						$icon_rank = "images/Bronze2.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#faa54e';
 						break;
 					case 'BronzeI':
 						$icon_rank = "images/Bronze1.png";
-						$c_rank = '#a87ee6';
+						$c_rank = '#faa54e';
 						break;
 					default:
-						$icon_rank = "images/Unranked.png";
+						$icon_rank = "images/Unranked_icon.png";
 						$c_rank = '##666666';
 				}
 			}
@@ -476,9 +476,10 @@
 
 			function check_null(&...$args){	// This function will take any number of arguments as a reference and replace the string with "N/A" if its empty
 				foreach( $args as &$arg)
-					if( empty($arg) )
+					if(empty($arg))
 						$arg = "N/A";
 			}
+
         ?>
 	</div>
 </body>

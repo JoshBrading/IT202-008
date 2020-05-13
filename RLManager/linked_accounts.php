@@ -255,9 +255,9 @@ if(isset($_POST['cancel'])){
 
     foreach($str as $element) {                         // Checking for players rank in 3v3
 
-        if(strpos($element, "Solo") !== false)            // 
+        if(strpos($element, "Solo") !== false)          // 
         continue;                                       // If the player has a rank in solo 3v3 then continue
-        if(strpos($element, "Standard") !== false){       //
+        if(strpos($element, "Standard") !== false){     //
         $str = $element;                                // If "Standard" is in the string $element then assign it to $str and break the loop
         break;                                          //
         }
@@ -267,6 +267,11 @@ if(isset($_POST['cancel'])){
     $str = str_replace($remove_these, '', $str);        // Remove the characters
     $str = explode('(', $str);                          // Break the string into an array (this should work for everyones stats I think?)
     $str = $str[0];                                     // We only need the first elemennt in the array
+
+
+    if( strpos( $str, 'Grand' ) !== false)              // If the player has the word grand in the rank then they have to be grand champion
+        $str = 'Grand Champion';                         // Setting str to grand champion so we dont actually have to strip away stuff
+        
     setRank($str);
     }
     function setRank($rank){ // return the highest rank and game mode with the highest rank
