@@ -64,6 +64,7 @@ if(isset($_POST['email']) && isset($_POST['password']) && !empty($_POST['passwor
 					"roles"=> $roles);
 				$_SESSION['user'] = $email;
 				echo "Session: <pre>" . var_export($_SESSION, true) . "</pre>";
+				echo "<script type='text/javascript'> document.location = 'home.php'; </script>";
 			}
 			else{
 				echo "Failed to login, invalid password";

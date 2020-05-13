@@ -160,11 +160,11 @@
                         <p style="msrgin-top: 10px;">Bio</p>
                         <textarea id="w3mission" maxlength="256" rows="6" cols="30" style="resize: none; background-color: #2e2e2e; margin-top: 10px;" placeholder=" 256 characters about yourself!"></textarea>
                     
-                        <i class="fa fa-twitter" style="margin-right: 10px;"></i>
+                        <i class="fa fa-twitter fa-lg" style="margin-right: 10px;"></i>
                         <input type="text" name="twitter" id="twitter" placeholder="Twitter" style="display: inline-block;" />
-                        <i class="fab fa-discord" style="margin-right: 10px;"></i>
+                        <i class="fab fa-discord fa-lg" style="margin-right: 10px;"></i>
                         <input type="text" name="discord" id="discord" placeholder="Discord" style="display: inline-block;" />
-                        <i class="fab fa-twitch" style="margin-right: 10px;"></i>
+                        <i class="fab fa-twitch fa-lg" style="margin-right: 10px;"></i>
                         <input type="text" name="twitch" id="twitch" placeholder="Twitch" style="display: inline-block;" />
                         <br>
                         <br>
@@ -233,7 +233,7 @@
                 </form>
 
                 
-                <form name="change_password" method="POST" align="center">
+                <form name="change_password" method="POST" align="center" >
                     <br>
                     <hr>
                     <br>
@@ -284,10 +284,14 @@
     </div>
 </div>
 </body>
-
 </html>
 <?php
 session_start();
+
+echo '<script>myfunction()</script>';
+
+
+  
 if(isset($_POST['home'])){
 
     echo "<script type='text/javascript'> document.location = 'home.php'; </script>";

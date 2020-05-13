@@ -177,31 +177,59 @@
 		<div class="item1">
 			<div class="main-block">
 				<div align="center">
-					<form name="Cancel" method="POST">
-						<div class="btn-block">
-							<button type="submit" name="login" href="/">Login</button>
-						</div>
-					</form>
-					<form name="Cancel" method="POST">
-						<div class="btn-block">
-							<button type="submit" name="register" href="/">Register</button>
-						</div>
-					</form>
-					<form name="Cancel" method="POST">
-						<div class="btn-block">
-							<button type="submit" name="profile" href="/">Edit Profile</button>
-						</div>
-					</form>
-					<form name="Cancel" method="POST">
-						<div class="btn-block">
-							<button type="submit" name="schedule" href="/">Edit Schedule</button>
-						</div>
-					</form>
-					<form name="Cancel" method="POST">
-						<div class="btn-block">
-							<button type="submit" name="logout" href="/">Logout</button>
-						</div>
-					</form>
+				<?php
+				session_start();
+				if(isset($_SESSION['user'])) {
+					//echo $_SESSION['user'];
+					$GLOBALS['logged_in'] = true;
+				} else {
+					$GLOBALS['logged_in'] = false;
+				}
+					if($GLOBALS['logged_in']){
+						echo '
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="login" href="/">Login</button>
+								</div>
+							</form>
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="register" href="/">Register</button>
+								</div>
+							</form>
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="profile" href="/">Edit Profile</button>
+								</div>
+							</form>
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="schedule" href="/">Edit Schedule</button>
+								</div>
+							</form>
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="logout" href="/">Logout</button>
+								</div>
+							</form>
+						';
+					} else {
+						echo '
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="login" href="/">Login</button>
+								</div>
+							</form>
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="register" href="/">Register</button>
+								</div>
+							</form>
+						';
+					}
+
+				
+				?>
 				</div>
 				<h1>Practice Times</h1>
 				<div align="center">
@@ -377,11 +405,14 @@
 						$c_position = '#2fcd73';
 						break;
 					case 'Player':
-						$c_position = "#000000";
+						$c_position = $c_division;
 						break;
 					case 'GameManager':
 						$c_position = "#000000";
 						break;
+					case 'Admin':
+						$c_position = "#fc0303";
+						
 				}
 				switch( $p_rank ){
 					case "GrandChampion":
@@ -507,5 +538,11 @@
     if(isset($_POST['profile'])){
 
         echo "<script type='text/javascript'> document.location = 'profile.php'; </script>";
-    }
+	}
+
+	function function_alert($message) { 
+		
+		echo "<script>alert('$message');</script>"; 
+	} 
+	
 ?>

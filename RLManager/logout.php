@@ -31,16 +31,16 @@ if (ini_get("session.use_cookies")) {
 </head>
 <body>
   <div align="center">
-    <p>Logged out! <br> Redirecting to login in <span id="countdowntimer">5 </span> Seconds</p>
+    <p>Logged out! <br> Redirecting to home page in <span id="countdowntimer">3 </span> Seconds</p>
   </div>
-  <meta http-equiv="refresh" content="5;url=http://web.njit.edu/~jb547/IT202/RLManager/login.php" />
+  <meta http-equiv="refresh" content="5;url=http://web.njit.edu/~jb547/IT202/RLManager/home.php" />
 <script type="text/javascript">
-    var timeleft = 5;
-    var downloadTimer = setInterval(function(){
+    var timeleft = 3;
+    var timer = setInterval(function(){
     timeleft--;
     document.getElementById("countdowntimer").textContent = timeleft;
     if(timeleft <= 0)
-        clearInterval(downloadTimer);
+        clearInterval(timer);
     },1000);
 </script>
 </body>
