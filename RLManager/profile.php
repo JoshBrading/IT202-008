@@ -361,7 +361,8 @@ if(isset($_POST['home'])){
 
     if( strpos( $str, 'Grand' ) !== false)              // If the player has the word grand in the rank then they have to be grand champion
         $str = 'Grand Champion';                         // Setting str to grand champion so we dont actually have to strip away stuff
-        
+    
+
     setRank($str);
     }
     function setRank($rank){ // return the highest rank and game mode with the highest rank

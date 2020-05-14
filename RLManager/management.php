@@ -2,7 +2,7 @@
 <html>
 
 <head>
-	<title>Profile</title>
+	<title>Team Management</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 	<script src="https://kit.fontawesome.com/2dc30c3b9c.js" crossorigin="anonymous"></script>
 	<style>
@@ -150,6 +150,7 @@
     <?php
         session_start();
         require("config.php");
+        include("common_functions.php");
         $email = $_SESSION['user'];
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try {
@@ -159,16 +160,14 @@
             $stmt->execute();
 
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $i = 0;
-            $grid = 2;
             $position = $result[0]['player_position'];
-
         }
         catch(Exception $e){
             echo $e->getMessage();
             exit();
         }
-        if(!isset($_SESSION['user']) || $position !== 'Captain' || $position !== 'GameManager') {
+        
+        if(!isset($_SESSION['user']) && $position != 'Captain') {
            Echo '<div style="grid-column: 1 / span 3; grid-row: 2 / span 2;">
            <div class="main-block">
                <h1>Access Denied</h1>
@@ -177,117 +176,111 @@
        </div>
        ';
         }else{
+            
         echo '
     <div style="grid-column: 2; grid-row: 2 / span 2;">
             <div class="main-block" style="width: 340px;">
-                <h1>Basic Information</h1>
+                <h1>Team Management</h1>
                     <form name="profile_info" method="POST" align="center">
                         <hr>
-                        <br>
-                        <p>Display Name</p>
-                        <input type="text" name="username" id="username" placeholder="Display Name" style="display: inline-block;" />
-                        <br>
-                        <br>
-                        <p style="msrgin-top: 10px;">Bio</p>
-                        <textarea id="w3mission" maxlength="256" rows="6" cols="30" style="resize: none; background-color: #2e2e2e; margin-top: 10px;" placeholder=" 256 characters about yourself!"></textarea>
-                    
-                        <i class="fa fa-twitter fa-lg" style="margin-right: 10px;"></i>
-                        <input type="text" name="twitter" id="twitter" placeholder="Twitter" style="display: inline-block;" />
-                        <i class="fab fa-discord fa-lg" style="margin-right: 10px;"></i>
-                        <input type="text" name="discord" id="discord" placeholder="Discord" style="display: inline-block;" />
-                        <i class="fab fa-twitch fa-lg" style="margin-right: 10px;"></i>
-                        <input type="text" name="twitch" id="twitch" placeholder="Twitch" style="display: inline-block;" />
-                        <br>
-                        <br>
-                        <button type="submit" name="save">Save Changes</button>
+                    ';
+                    try {
+                        $sql="SELECT email FROM RLManager";
+                        $db = new PDO($connection_string, $dbuser, $dbpass);
+                        $stmt = $db->prepare($sql);
+                        $stmt->execute();
+            
+                        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                        echo '
+                        <label for="player">Pick a player:</label>
+            
+                        <select id="player">
+                        ';
+                        foreach( $result as $row){
+                            foreach($row as $key => $val){
+                                echo "<option value='$val'>$val</option>";
+                            }
+                        }
+                        echo "</select>";  
+                    }
+                    catch(Exception $e){
+                        echo $e->getMessage();
+                        exit();
+                    }
+                    echo '
                     </form>
             </div>
         </div>
-        <div style="grid-column: 3; grid-row: 2 / span 2; ">
-            <div class="main-block" style="width: 340px;">
-                <h1>Linked Account</h1>
-                <form name="Linked_Account" method="POST" align="center">
-                    <hr>
-                    <br>
-                    <div class="user_platform">
-                        <input type="radio" value="steam" id="steam" name="platform" checked/>
-                        <label for="steam" class="radio">Steam</label>
-                        <input type="radio" value="ps" id="ps4" name="platform" />
-                        <label for="ps4" class="radio">PS4</label>
-                        <input type="radio" value="xbox" id="xbox" name="platform" />
-                        <label for="xbox" class="radio">Xbox</label>
-                    </div>
-                    <br>
-                    <input type="text" name="username" id="username" placeholder="Username" />
-                    <p style="margin-top: 10px;">Automatically fetch your rank.</p>
-                    <button type="submit" name="submit">Submit</button>
-                </form>
-                <form name="manual" method="POST" align="left">
-                    <br>
-                    
-                    <hr>
-                    <br>
-                    <p align="center" style="margin-bottom: 5px;">Manually enter your rank.</p>
-                    <input type="radio" value="Grand Champion" id="Grand Champion" name="rank" checked/>
-                    <label for="grand champion" class="radio">Grand Champion</label>
-                    <input type="radio" value="Champion 3" id="Champion 3" name="rank" />
-                    <label for="Champion 3" class="radio">Champion 3</label>
-                    <input type="radio" value="Champ 2 or lower" id="Champ 2 or lower" name="rank" />
-                    <label for="Champ 2 or lower" class="radio">Champ 2 or lower</label>
-                    <br>
-                    <br>
-                    <button type="submit" name="submitManual">Submit</button>
-                    <br>
-                    <br>
-                    <hr>
-                    <br>
-                    <p align="center">Auto fetching your rank will link your game account to your profile.</p>
-                </form>
-            </div>
-        </div>
-
-        <div style="grid-column: 1; grid-row: 2;">
-            <div class="main-block" style="width: 340px;">
-                <h1>Security</h1>
-                <form name="change_email" method="POST" align="center">
-                    <hr>
-                    <br>
-                    <p>Change Email</h>
-                    <br>
-                    <i class="far fa-envelope" style="margin-right: 10px;"></i>
-                    <input type="text" name="email" id="email" placeholder="New Email" style="display: inline-block;" />
-                    <i class="fas fa-lock" style="margin-right: 10px;"></i>
-                    <input type="password" name="password" id="password" placeholder="Password" style="display: inline-block;" />
-                    <br>
-                    <br>
-                    <button type="submit" name="save">Save Changes</button>
-                </form>
-
-                
-                <form name="change_password" method="POST" align="center" >
-                    <br>
-                    <hr>
-                    <br>
-                    <p>Change Password</h>
-                    <br>
-                    <i class="fas fa-unlock" style="margin-right: 10px;"></i>
-                    <input type="password" name="email" id="email" placeholder="Old Password" style="display: inline-block;" />
-                    <i class="fas fa-lock" style="margin-right: 10px;"></i>
-                    <input type="password" name="password" id="password" placeholder="New Password" style="display: inline-block;" />
-                    <i class="fas fa-lock" style="margin-right: 10px;"></i>
-                    <input type="password" name="password" id="password" placeholder="Retype Password" style="display: inline-block;" />
-                    <br>
-                    <br>
-
-                    <button type="submit" name="save">Save Changes</button>
-                </form>
-            </div>
-        </div>
+        
         ';
+        echo '
+        <div style="grid-column: 3; grid-row: 2 / span 2;">
+                <div class="main-block" style="width: 340px;">
+                    <h1>Current Teams</h1>
+                        <form name="profile_info" method="POST" align="center">
+                            <hr>
+                        ';
+                        try {
+                            $sql="SELECT email, player_division, g_rank FROM RLManager";
+                            $db = new PDO($connection_string, $dbuser, $dbpass);
+                            $stmt = $db->prepare($sql);
+                            $stmt->execute();
+                
+                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                            echo '<p style="font-size: 24px;">Division 1</p><br>';
+                            foreach( $result as $row){
+                                $division = $row['player_division'];
+                                $p_email = $row['email'];
+                                $rank = $row['g_rank'];
+                                $p_email = '    ' . $p_email;
+                                assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
+                                
+                                //if($division == 'Division 1'){
+                                    
+                                    echo "
+                                        <img src=$icon_rank height='20px' width='20px' >
+                                        <p style='margin-bottom:20px;'>$p_email</p>
+
+                                    ";
+                                
+                               // }
+                            
+                            }
+                            echo '<hr><p style="font-size: 24px;">Division 2</p><br>';
+                            foreach( $result as $row){
+                                $division = $row['player_division'];
+                                $p_email = $row['email'];
+                                $rank = $row['g_rank'];
+                                $p_email = '    ' . $p_email;
+                                assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
+                                
+                                //if($division == 'Division 1'){
+                                    
+                                    echo "
+                                        <img src=$icon_rank height='20px' width='20px' >
+                                        <p style='margin-bottom:20px;'>$p_email</p>
+
+                                    ";
+                                
+                               // }
+                            
+                            }
+                             
+                        }
+                        catch(Exception $e){
+                            echo $e->getMessage();
+                            exit();
+                        }
+                        echo '
+                        </form>
+                </div>
+            </div>
+            
+            ';
         }
         echo '
         <div style="grid-column: 1 / span 3; grid-row: 1;">
-            <div class="main-block" style="max-width=9000px; max-height: 150px;">
+            <div class="main-block" style="max-width:680 px; max-height: 150px;">
                 <h1>Navigation</h1>
                 <div class="grid-container" align="center" style="padding: 0px;">
                     <div style="grid-column: 1;">
