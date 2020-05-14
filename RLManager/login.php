@@ -3,7 +3,7 @@
 		<title>RL Manager - Register</title>
 		<style>
 		body{
-			background-color: #212F3C;
+			background-color: #1c1c1c;
 
 			color: white;
 		}

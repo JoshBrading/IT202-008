@@ -23,7 +23,7 @@ if (ini_get("session.use_cookies")) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 		body{
-			background-color: #212F3C;
+			background-color: #1c1c1c;
 
 			color: white;
 		}

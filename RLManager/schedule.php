@@ -365,7 +365,7 @@ if(isset($_POST['cancel'])){
 }
 if(isset($_SESSION['user'])) {
     $user = $_SESSION['user'];
-    echo $_SESSION['user'];
+   // echo $_SESSION['user'];
     if(!empty($_POST['time_day'])) {
 
         $time_slot = "";
@@ -373,7 +373,7 @@ if(isset($_SESSION['user'])) {
             $time_slot .= "$time ";
             $time_slot .= "";
         }
-        echo $time_slot;
+       // echo $time_slot;
 		require("config.php");
 		$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
 		try {
@@ -381,7 +381,7 @@ if(isset($_SESSION['user'])) {
 			$db = new PDO($connection_string, $dbuser, $dbpass);
 			$stmt = $db->prepare($sql);
 			$stmt->execute();
-			echo "<pre>" . print_r($stmt->errorInfo(), true) . "</pre>";
+			//echo "<pre>" . print_r($stmt->errorInfo(), true) . "</pre>";
 		}
 		catch(Exception $e){
 			echo $e->getMessage();

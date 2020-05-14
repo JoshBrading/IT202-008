@@ -309,7 +309,7 @@
             </div>
             
             ';
-        }
+        
         echo '
         <div style="grid-column: 1; grid-row: 2 / span 2;">
                 <div class="main-block" style="width: 340px; max-height: 6000;">
@@ -349,6 +349,7 @@
             </div>
             
             ';
+        }
         
         echo '
         <div style="grid-column: 1 / span 3; grid-row: 1;">
@@ -403,15 +404,18 @@
 </html>
 <?php
 
-if(isset($_POST['home'])){
-
+if(isset($_POST['home']))
     echo "<script type='text/javascript'> document.location = 'home.php'; </script>";
-}
-if(isset($_POST['login'])){
-
+if(isset($_POST['login']))
     echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
+if(isset($_POST['clear'])){
+    setAllVar('player_division', '');
+    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
 }
-
+if(isset($_POST['refresh']))
+    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
+if(isset($_POST['logout']))
+    echo "<script type='text/javascript'> document.location = 'logout.php'; </script>";
 if(isset($_POST['submit_team'])){
     $team = $_POST['team'];
     $email = $_POST['player'];
@@ -432,10 +436,4 @@ if(isset($_POST['submit_team'])){
 
 }
 
-if(isset($_POST['clear'])){
-    setAllVar('player_division', '');
-    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
-}
-if(isset($_POST['refresh']))
-    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
 ?>

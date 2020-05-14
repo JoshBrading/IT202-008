@@ -235,7 +235,7 @@
                     <input type="password" name="password" id="password" placeholder="Password" style="display: inline-block;" />
                     <br>
                     <br>
-                    <button type="submit" name="save">Save Changes</button>
+                    <button type="submit" name="email">Save Changes</button>
                 </form>
 
                 
@@ -246,15 +246,15 @@
                     <p>Change Password</h>
                     <br>
                     <i class="fas fa-unlock" style="margin-right: 10px;"></i>
-                    <input type="password" name="email" id="email" placeholder="Old Password" style="display: inline-block;" />
+                    <input type="password" name="old_pass" id="email" placeholder="Old Password" style="display: inline-block;" />
                     <i class="fas fa-lock" style="margin-right: 10px;"></i>
-                    <input type="password" name="password" id="password" placeholder="New Password" style="display: inline-block;" />
+                    <input type="password" name="pass" id="password" placeholder="New Password" style="display: inline-block;" />
                     <i class="fas fa-lock" style="margin-right: 10px;"></i>
-                    <input type="password" name="password" id="password" placeholder="Retype Password" style="display: inline-block;" />
+                    <input type="password" name="confirm" id="password" placeholder="Retype Password" style="display: inline-block;" />
                     <br>
                     <br>
 
-                    <button type="submit" name="save">Save Changes</button>
+                    <button type="submit" name="change_pass">Save Changes</button>
                 </form>
             </div>
         </div>
@@ -280,7 +280,7 @@
                     <div style="grid-column: 3;">
                     <form name="home" method="POST">
                         <div class="btn-block">
-                            <button type="submit" name="Edit Schedule">Edit Schedule</button>
+                            <button type="submit" name="schedule">Edit Schedule</button>
                         </div>
                     </form>
                     </div>
@@ -293,11 +293,57 @@
 </html>
 <?php
 session_start();
+require('config.php');
 include('common_functions.php');
 
 if(isset($_POST['home'])){
 
     echo "<script type='text/javascript'> document.location = 'home.php'; </script>";
+}
+if(isset($_POST['schedule'])){
+
+    echo "<script type='text/javascript'> document.location = 'schedule.php'; </script>";
+}
+
+if(isset($_POST['change_pass']) && !empty($_POST['pass']) && !empty($_POST['old_pass']) && !empty($_POST['confirm'] )){
+    
+    $old_pass = $_POST['old_pass'];
+    $pass = $_POST['pass'];
+    $conf = $_POST['confirm'];
+    $email = $_SESSION['user'];
+    //echo $email;
+    //echo $pass . '<br>' . $conf;
+    
+    $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+	try {
+        $sql="SELECT password FROM RLManager WHERE email = '$email'";
+		$db = new PDO($connection_string, $dbuser, $dbpass);
+		$stmt = $db->prepare($sql);
+
+        $stmt->execute();
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		echo "<pre>" . var_export($stmt->errorInfo(), true) . "</pre>";
+		//if($result){
+        $userpassword = $result['password'];
+        echo '<br>'. 'awdawd' . $userpassword;
+        if(password_verify($old_pass, $userpassword)){
+            if($pass !== $conf){
+                echo "<script>alert('Passwords do not match!')</script>";
+            } else{
+                $new_pass = password_hash($pass, PASSWORD_BCRYPT);
+                setVar('password', $new_pass);
+            }
+        }
+        else{
+            echo "Failed to login, invalid password";
+        }
+	}
+	catch(Exception $e){
+		echo $e->getMessage();
+		exit();
+	}
+
+ 
 }
 
   //echo  $_SESSION['user'];

@@ -23,7 +23,7 @@ if(	   isset($_POST['email'])
 		$msg = "Registration complete.";
 		//let's hash it
 		$pass = password_hash($pass, PASSWORD_BCRYPT);
-		echo "<br>$pass<br>";
+		//echo "<br>$pass<br>";
 		//it's hashed
 		require("config.php");
 		$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
@@ -44,7 +44,7 @@ if(	   isset($_POST['email'])
             ":discord"=>$discord,
             ":g_rank"=>$g_rank);
 			$stmt->execute($params);
-			echo "<pre>" . var_export($stmt->errorInfo(), true) . "</pre>";
+			//echo "<pre>" . var_export($stmt->errorInfo(), true) . "</pre>";
 		}
 		catch(Exception $e){
 			echo $e->getMessage();
@@ -59,7 +59,7 @@ if(	   isset($_POST['email'])
 		<title>RL Manager - Register</title>
 		<style>
 		body{
-			background-color: #212F3C;
+			background-color: #1c1c1c;
 
 			color: white;
 		}
