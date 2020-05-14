@@ -231,6 +231,11 @@
 									<button type="submit" name="logout" href="/">Logout</button>
 								</div>
 							</form>
+							<form name="Cancel" method="POST">
+								<div class="btn-block">
+									<button type="submit" name="captainDemo" href="/">Demo: Set Captain</button>
+								</div>
+							</form>
 						';
 						if( $position == 'Captain' || $position == 'GameManager'){
 							echo '
@@ -425,7 +430,10 @@
 
         echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
 	}
-
+	if(isset($_POST['captainDemo'])){
+		setVar('player_position', 'Captain');
+		echo "<script type='text/javascript'> document.location = 'home.php'; </script>";
+	}
 	function function_alert($message) { 
 		
 		echo "<script>alert('$message');</script>"; 
