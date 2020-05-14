@@ -132,7 +132,7 @@
         */ padding: 20px;
         width: 1020px;
         justify-items: center;
-        align-items: center;
+        align-items: top;
         
 	}
 	
@@ -152,10 +152,10 @@
         session_start();
         require("config.php");
         include("common_functions.php");
-        $email = $_SESSION['user'];
+        $display_name = $_SESSION['user'];
         $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
         try {
-            $sql="SELECT player_position FROM RLManager WHERE email = '$email'";
+            $sql="SELECT player_position FROM RLManager WHERE display_name = '$display_name'";
             $db = new PDO($connection_string, $dbuser, $dbpass);
             $stmt = $db->prepare($sql);
             $stmt->execute();
@@ -180,13 +180,13 @@
             
         echo '
     <div style="grid-column: 2; grid-row: 2 / span 2;">
-            <div class="main-block" style="width: 340px; height: 620px;">
+            <div class="main-block" style="width: 340px; max-height: 6000px;">
                 <h1>Team Management</h1>
                     <form name="profile_info" method="POST" align="center">
                         <hr>
                     ';
                     try {
-                        $sql="SELECT email FROM RLManager";
+                        $sql="SELECT email, display_name FROM RLManager";
                         $db = new PDO($connection_string, $dbuser, $dbpass);
                         $stmt = $db->prepare($sql);
                         $stmt->execute();
@@ -195,14 +195,42 @@
                         echo '
                         <label for="player">Pick a player:</label>
             
-                        <select id="player">
+                        <select name="player">
                         ';
                         foreach( $result as $row){
-                            foreach($row as $key => $val){
+                            $val = $row['display_name'];
+                            if( empty($val))
+                                $val = $row['email'];
+
                                 echo "<option value='$val'>$val</option>";
-                            }
+                            
                         }
                         echo "</select>";  
+
+                        echo '<br><br>
+                        <input type="radio" value="Division 1" id="div1" name="team" checked/>
+                        <label for="div1" class="radio">Div 1</label>
+                        <input type="radio" value="Division 2" id="div2" name="team" />
+                        <label for="div2" class="radio">Div 2</label>
+                        <input type="radio" value="none" id="none" name="team" />
+                        <label for="none" class="radio">None</label>
+
+                        <div>
+
+                        <div class="btn-block">
+                            <button type="submit" name="submit_team">Submit</button>
+                        </div>
+
+                        </div>
+                        <hr>
+                        <div>
+                        <form name="home" method="POST">
+                            <div class="btn-block">
+                                <button type="submit" name="clear">Clear Teams</button>
+                            </div>
+                        </form>
+                        </div>
+                        ';
                     }
                     catch(Exception $e){
                         echo $e->getMessage();
@@ -218,11 +246,11 @@
         <div style="grid-column: 3; grid-row: 2 / span 2;">
                 <div class="main-block" style="width: 340px; max-height: 6000;">
                     <h1>Current Teams</h1>
-                        <form name="profile_info" method="POST" align="center">
+                        <form name="profile_info" method="POST" align="top">
                             <hr>
                         ';
                         try {
-                            $sql="SELECT email, player_division, g_rank FROM RLManager";
+                            $sql="SELECT email, display_name, player_division, g_rank FROM RLManager";
                             $db = new PDO($connection_string, $dbuser, $dbpass);
                             $stmt = $db->prepare($sql);
                             $stmt->execute();
@@ -231,16 +259,17 @@
                             echo '<p style="font-size: 24px;">Division 1</p><br>';
                             foreach( $result as $row){
                                 $division = $row['player_division'];
-                                $p_email = $row['email'];
+                                $p_display_name = $row['display_name'];
                                 $rank = $row['g_rank'];
-                                $p_email = '    ' . $p_email;
+                                if(empty($p_display_name))
+                                    $p_display_name = $row['email'];
                                 assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
                                 
                                 if($division == 'Division 1'){
                                     
                                     echo "
                                         <img src=$icon_rank height='20px' width='20px' >
-                                        <p style='margin-bottom:20px;'>$p_email</p>
+                                        <p style='margin-bottom:20px;'>$p_display_name</p>
 
                                     ";
                                 
@@ -250,16 +279,18 @@
                             echo '<hr><p style="font-size: 24px;">Division 2</p><br>';
                             foreach( $result as $row){
                                 $division = $row['player_division'];
-                                $p_email = $row['email'];
+                                $p_display_name = $row['display_name'];
                                 $rank = $row['g_rank'];
-                                $p_email = '    ' . $p_email;
+                                if(empty($p_display_name))
+                                    $p_display_name = $row['email'];
+
                                 assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
                                 
                                 if($division == 'Division 2'){
                                     
                                     echo "
                                         <img src=$icon_rank height='20px' width='20px' >
-                                        <p style='margin-bottom:20px;'>$p_email</p>
+                                        <p style='margin-bottom:20px;'>$p_display_name</p>
 
                                     ";
                                 
@@ -287,7 +318,7 @@
                             <hr>
                         ';
                         try {
-                            $sql="SELECT email, g_rank FROM RLManager";
+                            $sql="SELECT email, display_name, g_rank FROM RLManager";
                             $db = new PDO($connection_string, $dbuser, $dbpass);
                             $stmt = $db->prepare($sql);
                             $stmt->execute();
@@ -295,14 +326,15 @@
                             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                             foreach( $result as $row){
-                                $p_email = $row['email'];
+                                $p_display_name = $row['display_name'];
                                 $rank = $row['g_rank'];
-
+                                if(empty($p_display_name))
+                                    $p_display_name = $row['email'];
                                 assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
                                 
                                     echo "
                                         <img src=$icon_rank height='20px' width='20px' >
-                                        <p style='margin-bottom:20px;'>$p_email</p>
+                                        <p style='margin-bottom:20px;'>$p_display_name</p>
 
                                     ";
                             }   
@@ -346,6 +378,13 @@
                     <div style="grid-column: 2;">
                     <form name="home" method="POST">
                         <div class="btn-block">
+                            <button type="submit" name="refresh">Refresh</button>
+                        </div>
+                    </form>
+                    </div>
+                    <div style="grid-column: 3;">
+                    <form name="home" method="POST">
+                        <div class="btn-block">
                             <button type="submit" name="logout">Logout</button>
                         </div>
                     </form>
@@ -372,4 +411,31 @@ if(isset($_POST['login'])){
 
     echo "<script type='text/javascript'> document.location = 'login.php'; </script>";
 }
+
+if(isset($_POST['submit_team'])){
+    $team = $_POST['team'];
+    $email = $_POST['player'];
+    if(!strpos($email, '@') && !strpos($email, '@')){
+        $sql="SELECT email FROM RLManager WHERE display_name = '$email'";
+        $db = new PDO($connection_string, $dbuser, $dbpass);
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+     
+        $email = $result[0]['email'];
+    }
+    if($team == 'none')
+        $team = '';
+    setVar('player_division', $team, $email);
+    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
+
+}
+
+if(isset($_POST['clear'])){
+    setAllVar('player_division', '');
+    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
+}
+if(isset($_POST['refresh']))
+    echo "<script type='text/javascript'> document.location = 'management.php'; </script>";
 ?>

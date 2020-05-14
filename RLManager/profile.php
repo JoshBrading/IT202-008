@@ -333,9 +333,9 @@ if(isset($_POST['profile_info_submit'])){
         $pass = $_POST['pass'];
         $user = $_POST['username'];
         $platform = $_POST['platform'];
-
+        echo $user;
         setVar($platform, $user);
-        
+
         if(strpos($user, ' ') != false) // Xbox users can have spaces in their name so we have to check for a space and then replace it
             $user = str_replace(" ","-",$user);
 
@@ -383,7 +383,7 @@ if(isset($_POST['profile_info_submit'])){
         break;                                          //
         }
     }
-
+    echo $str;
     $remove_these = [',', 'Standard v', '~'];           // We need to remove these characters to clean our text
     $str = str_replace($remove_these, '', $str);        // Remove the characters
     $str = explode('(', $str);                          // Break the string into an array (this should work for everyones stats I think?)
@@ -393,7 +393,7 @@ if(isset($_POST['profile_info_submit'])){
     if( strpos( $str, 'Grand' ) !== false)              // If the player has the word grand in the rank then they have to be grand champion
         $str = 'Grand Champion';                         // Setting str to grand champion so we dont actually have to strip away stuff
     
-
+    echo $str;
     setVar('g_rank', $str);
     }
 

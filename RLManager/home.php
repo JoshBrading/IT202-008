@@ -307,38 +307,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="item2">
-			<div class="grid-container">
-				<div class="item2">
-					<div class="card"> <img src="https://i.imgur.com/i7ltRDC.png" style="width: 100%;">
-						<div class="grid-container">
-							<div class="item1">
-								<h1 style="font-size: 56px">Tacki</h1> </div>
-							<div class="item3">
-								<h2 style="color: #4d93d9">Division 1</h2>
-								<h2 style="color: #2fcd73; margin-top: 0;">Captain</h2> <img src="https://rocketleague.tracker.network/Images/RL/ranked/s4-19.png" style="width:20%"> </div>
-							<div class="item4">
-								<h2 style="color: #ff00ea">Grand Champion</h2>
-								<h3>Linked Accounts</h3> </div>
-							<div class="itembio">
-								<p style="font-size: 16px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sagittis eget mi eget venenatis. Proin faucibus bibendum euismod. Nullam a erat sed ligula fringilla lacinia. Nunc tristique pharetra dictum. Cras vel metus ut libero pulvinar tincidunt nec sit amet ante. </p>
-							</div>
-							<div class="item5">
-								<div align="left" style="margin: 22px; vertical-align: middle;"> <a href="#"><i class="fa fa-steam"></i> player_steam</a>
-									<br> <a href="#"><i class="fab fa-xbox"></i> player_xbl</a>
-									<br> <a href="#"><i class="fab fa-playstation"></i> player_psn</a> </div>
-							</div>
-							<div class="item5">
-								<div align="left" style="margin: 22px; vertical-align: middle;"> <a href="#"><i class="fa fa-twitter"></i> player_twitter</a>
-									<br> <a href="#"><i class="fab fa-discord"></i> player_discord</a>
-									<br> <a href="#"><i class="fa fa-twitch"></i> player_twitch</a>
-									<br> <a href="#"><i class="far fa-envelope"></i> player_email</a> </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<?php
             require("config.php");
 			include("common_functions.php");
@@ -374,7 +342,7 @@
 					// Pass this the players division, position and rank, also references to each color
 					// assign_colors(p_division, p_position, p_rank, &c_division, &c_position, &c_rank);
 					assign_colors($division, $position, $rank, $color_division, $color_position, $color_rank, $icon_rank);
-					if( $i >= 2){
+					if( $i >= 3){
 						$grid++;
 						$i = 0;
 					}
@@ -424,16 +392,11 @@
             }
             $conn = null;
 
-			
-
-			
-
 			function check_null(&...$args){	// This function will take any number of arguments as a reference and replace the string with "N/A" if its empty
 				foreach( $args as &$arg)
 					if(empty($arg))
 						$arg = "N/A";
 			}
-
         ?>
 	</div>
 </body>
@@ -467,5 +430,4 @@
 		
 		echo "<script>alert('$message');</script>"; 
 	} 
-	
 ?>
