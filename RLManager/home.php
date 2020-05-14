@@ -361,9 +361,16 @@
 					$discord = $row['discord'];
 					$rank = $row['g_rank'];
 					$email = $row['email'];
-					$division = 'Division 1';
-					$position = 'Captain';
-					check_null($discord, $rank, $email, $bio, $account_steam, $account_xbl, $account_psn, $twitter, $twitch, $email);
+					$bio = $row['bio'];
+					$display_name = $row['display_name'];
+					$twitter = $row['twitter'];
+					$twitch = $row['twitch'];
+					$division = $row['player_division'];
+					$position = $row['player_position'];
+					$account_psn = $row['ps'];
+					$account_steam = $row['steam'];
+					$account_xbl = $row['xbox'];
+					check_null($display_name, $discord, $rank, $email, $account_steam, $account_xbl, $account_psn, $twitter, $twitch, $email);
 					// Pass this the players division, position and rank, also references to each color
 					// assign_colors(p_division, p_position, p_rank, &c_division, &c_position, &c_rank);
 					assign_colors($division, $position, $rank, $color_division, $color_position, $color_rank, $icon_rank);
@@ -379,7 +386,7 @@
 									<div class='card'> <img src='https://holmesbuilders.com/wp-content/uploads/2016/12/male-profile-image-placeholder.png' style='width:100%'>
 										<div class='grid-container'>
 											<div class='item1'>
-												<h1 style='font-size: 56px'>$discord</h1> </div>
+												<h1 style='font-size: 56px'>$display_name</h1> </div>
 											<div class='item3'>
 												<h2 style='color: $color_division'>$division</h2>
 												<h2 style='color: $color_position; margin-top: 0;'>$position</h2>
@@ -393,16 +400,16 @@
 											</div>
 											<div class='item5'>
 												<div align='left' style='margin: 22px; vertical-align: middle;'>
-													<a href='#'><i class='fa fa-steam'></i> $account_steam</a>
+													<a href='https://steamcommunity.com/id/$account_steam' target='_blank'><i class='fa fa-steam'></i> $account_steam</a>
 													<br> <a href='#'><i class='fab fa-xbox'></i> $account_xbl</a>
 													<br> <a href='#'><i class='fab fa-playstation'></i> $account_psn</a> </div>
 											</div>
 											<div class='item5'>
 												<div align='left' style='margin: 22px; vertical-align: middle;'> 
-													<a href='#'><i class='fa fa-twitter'></i> $twitter</a>
-													<br> <a href='#'><i class='fab fa-discord'></i> $discord</a>
-													<br> <a href='#'><i class='fa fa-twitch'></i> $twitch</a>
-													<br> <a href='#'><i class='far fa-envelope'></i> $email</a> </div>
+													<a href='https://twitter.com/$twitter' target='_blank' ><i class='fa fa-twitter'></i> $twitter</a>
+													<br> <a href='#' target='_blank' ><i class='fab fa-discord'></i> $discord</a>
+													<br> <a href='https://twitch.tv/$twitch' target='_blank' ><i class='fa fa-twitch'></i> $twitch</a>
+													<br> <a href='mailto:$email' target='_blank' ><i class='far fa-envelope'></i> $email</a> </div>
 											</div>
 										</div>
 									</div>

@@ -149,16 +149,20 @@
     <div class="grid-container">
     <div style="grid-column: 2; grid-row: 2 / span 2;">
             <div class="main-block" style="width: 340px;">
+
+
+            <!-- BASIC INFORMATION -->
+
                 <h1>Basic Information</h1>
                     <form name="profile_info" method="POST" align="center">
                         <hr>
                         <br>
                         <p>Display Name</p>
-                        <input type="text" name="username" id="username" placeholder="Display Name" style="display: inline-block;" />
+                        <input type="text" name="display_name" id="display_name" placeholder="Display Name" style="display: inline-block;" />
                         <br>
                         <br>
                         <p style="msrgin-top: 10px;">Bio</p>
-                        <textarea id="w3mission" maxlength="256" rows="6" cols="30" style="resize: none; background-color: #2e2e2e; margin-top: 10px;" placeholder=" 256 characters about yourself!"></textarea>
+                        <textarea id="bio" name="bio" maxlength="256" rows="6" cols="30" style="resize: none; background-color: #2e2e2e; margin-top: 10px;" placeholder=" 256 characters about yourself!"></textarea>
                     
                         <i class="fa fa-twitter fa-lg" style="margin-right: 10px;"></i>
                         <input type="text" name="twitter" id="twitter" placeholder="Twitter" style="display: inline-block;" />
@@ -168,8 +172,11 @@
                         <input type="text" name="twitch" id="twitch" placeholder="Twitch" style="display: inline-block;" />
                         <br>
                         <br>
-                        <button type="submit" name="save">Save Changes</button>
+                        <button type="submit" name="profile_info_submit">Save Changes</button>
                     </form>
+
+            <!-- END BASIC INFORMATION -->  
+
             </div>
         </div>
         <div style="grid-column: 3; grid-row: 2 / span 2; ">
@@ -193,15 +200,14 @@
                 </form>
                 <form name="manual" method="POST" align="left">
                     <br>
-                    
                     <hr>
                     <br>
                     <p align="center" style="margin-bottom: 5px;">Manually enter your rank.</p>
                     <input type="radio" value="Grand Champion" id="Grand Champion" name="rank" checked/>
                     <label for="grand champion" class="radio">Grand Champion</label>
-                    <input type="radio" value="Champion 3" id="Champion 3" name="rank" />
+                    <input type="radio" value="Champion III" id="Champion 3" name="rank" />
                     <label for="Champion 3" class="radio">Champion 3</label>
-                    <input type="radio" value="Champ 2 or lower" id="Champ 2 or lower" name="rank" />
+                    <input type="radio" value="Champ II or lower" id="Champ 2 or lower" name="rank" />
                     <label for="Champ 2 or lower" class="radio">Champ 2 or lower</label>
                     <br>
                     <br>
@@ -287,24 +293,49 @@
 </html>
 <?php
 session_start();
+include('common_functions.php');
 
-echo '<script>myfunction()</script>';
-
-
-  
 if(isset($_POST['home'])){
 
     echo "<script type='text/javascript'> document.location = 'home.php'; </script>";
 }
 
   //echo  $_SESSION['user'];
-
+if(isset($_POST['profile_info_submit'])){
+    if(!empty($_POST['bio'])){
+        $bio = $_POST['bio'];
+        echo $bio;
+        setVar('bio', $bio);
+    }
+    if(!empty($_POST['twitter'])){
+        $twitter = $_POST['twitter'];
+        echo $twitter;
+        setVar('twitter', $twitter);
+    }
+    if(!empty($_POST['twitch'])){
+        $twitch = $_POST['twitch'];
+        echo $twitch;
+        setVar('twitch', $twitch);
+    }
+    if(!empty($_POST['discord'])){
+        $discord = $_POST['discord'];
+        echo $discord;
+        setVar('discord', $discord);
+    }
+    if(!empty($_POST['display_name'])){
+        $display_name = $_POST['display_name'];
+        echo $display_name;
+        setVar('display_name', $display_name);
+    }
+}
     if(isset($_POST['username'])){
         //echo $_POST['username'];
         $pass = $_POST['pass'];
         $user = $_POST['username'];
         $platform = $_POST['platform'];
 
+        setVar($platform, $user);
+        
         if(strpos($user, ' ') != false) // Xbox users can have spaces in their name so we have to check for a space and then replace it
             $user = str_replace(" ","-",$user);
 
@@ -315,7 +346,7 @@ if(isset($_POST['home'])){
     }else if(isset($_POST['rank'])){
         //echo "ranks";
         $g_rank = $_POST['rank'];
-        setRank($g_rank);
+        setVar('g_rank', $g_rank);
     }
 
     function getHTML($site_url) // Gets the html of https://rocketleague.tracker.network/profile/$platform/$user
@@ -363,24 +394,7 @@ if(isset($_POST['home'])){
         $str = 'Grand Champion';                         // Setting str to grand champion so we dont actually have to strip away stuff
     
 
-    setRank($str);
-    }
-    function setRank($rank){ // return the highest rank and game mode with the highest rank
-        //echo $rank;
-        require("config.php");
-        $email = $_SESSION['user'];
-		$connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
-		try {
-            $sql="UPDATE RLManager SET g_rank = '$rank' WHERE email = '$email'";
-			$db = new PDO($connection_string, $dbuser, $dbpass);
-			$stmt = $db->prepare($sql);
-			$stmt->execute();
-			echo "<pre>" . print_r($stmt->errorInfo(), true) . "</pre>";
-		}
-		catch(Exception $e){
-			echo $e->getMessage();
-			exit();
-		}
+    setVar('g_rank', $str);
     }
 
 ?>

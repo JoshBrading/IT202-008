@@ -34,7 +34,8 @@
 	}
 	
 	.main-block {
-		height: 620px;
+		
+        
 		padding: 10px 0;
 		margin: auto;
 		border-radius: 25px;
@@ -179,7 +180,7 @@
             
         echo '
     <div style="grid-column: 2; grid-row: 2 / span 2;">
-            <div class="main-block" style="width: 340px;">
+            <div class="main-block" style="width: 340px; height: 620px;">
                 <h1>Team Management</h1>
                     <form name="profile_info" method="POST" align="center">
                         <hr>
@@ -215,7 +216,7 @@
         ';
         echo '
         <div style="grid-column: 3; grid-row: 2 / span 2;">
-                <div class="main-block" style="width: 340px;">
+                <div class="main-block" style="width: 340px; max-height: 6000;">
                     <h1>Current Teams</h1>
                         <form name="profile_info" method="POST" align="center">
                             <hr>
@@ -235,7 +236,7 @@
                                 $p_email = '    ' . $p_email;
                                 assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
                                 
-                                //if($division == 'Division 1'){
+                                if($division == 'Division 1'){
                                     
                                     echo "
                                         <img src=$icon_rank height='20px' width='20px' >
@@ -243,7 +244,7 @@
 
                                     ";
                                 
-                               // }
+                                }
                             
                             }
                             echo '<hr><p style="font-size: 24px;">Division 2</p><br>';
@@ -254,7 +255,7 @@
                                 $p_email = '    ' . $p_email;
                                 assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
                                 
-                                //if($division == 'Division 1'){
+                                if($division == 'Division 2'){
                                     
                                     echo "
                                         <img src=$icon_rank height='20px' width='20px' >
@@ -262,7 +263,7 @@
 
                                     ";
                                 
-                               // }
+                                }
                             
                             }
                              
@@ -278,6 +279,45 @@
             
             ';
         }
+        echo '
+        <div style="grid-column: 1; grid-row: 2 / span 2;">
+                <div class="main-block" style="width: 340px; max-height: 6000;">
+                    <h1>All Players</h1>
+                        <form name="profile_info" method="POST" align="center">
+                            <hr>
+                        ';
+                        try {
+                            $sql="SELECT email, g_rank FROM RLManager";
+                            $db = new PDO($connection_string, $dbuser, $dbpass);
+                            $stmt = $db->prepare($sql);
+                            $stmt->execute();
+                
+                            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            foreach( $result as $row){
+                                $p_email = $row['email'];
+                                $rank = $row['g_rank'];
+
+                                assign_colors(NULL, NULL, $rank, $a, $b, $c_rank, $icon_rank);
+                                
+                                    echo "
+                                        <img src=$icon_rank height='20px' width='20px' >
+                                        <p style='margin-bottom:20px;'>$p_email</p>
+
+                                    ";
+                            }   
+                        }
+                        catch(Exception $e){
+                            echo $e->getMessage();
+                            exit();
+                        }
+                        echo '
+                        </form>
+                </div>
+            </div>
+            
+            ';
+        
         echo '
         <div style="grid-column: 1 / span 3; grid-row: 1;">
             <div class="main-block" style="max-width:680 px; max-height: 150px;">

@@ -125,4 +125,20 @@ function parse_rank( $p_rank ){ // If the user automatically fetches their ranke
     }
     return $rank_pased[0] . $rank_pased[1];
 }
+function setVar($var, $value){
+    require("config.php");
+    $email = $_SESSION['user'];
+    $connection_string = "mysql:host=$dbhost;dbname=$dbdatabase;charset=utf8mb4";
+    try {
+        $sql="UPDATE RLManager SET " . $var . " = '$value' WHERE email = '$email'";
+        $db = new PDO($connection_string, $dbuser, $dbpass);
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        echo "<pre>" . print_r($stmt->errorInfo(), true) . "</pre>";
+    }
+    catch(Exception $e){
+        echo $e->getMessage();
+        exit();
+    }
+}
 ?>
